@@ -41,7 +41,7 @@ const hotels = Array.from({ length: 50 }, (_, index) => ({
 
 const Hotels = () => {
   return (
-    <div className=" py-10 md:-mt-44">
+    <div className=" py-10 md:-mt-44 -mt-44">
       <h1 className="text-3xl font-bold underline text-center text-gray-800 mb-8">
         Available Hotels
       </h1>
