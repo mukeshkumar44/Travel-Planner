@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SubscriptionForm from "./SubscriptionForm";
 
 const imageUrls = [
@@ -31,25 +31,34 @@ const hotelNames = [
 ];
 
 const hotels = Array.from({ length: 50 }, (_, index) => ({
-  image: imageUrls[index % imageUrls.length], 
-  price: (50 + index * 5).toFixed(2), 
-  rating: (Math.random() * (5 - 3) + 3).toFixed(1), 
-  seatsAvailable: Math.floor(Math.random() * 50) + 1, 
-  name: hotelNames[index % hotelNames.length], 
-  id: index + 1, 
+  image: imageUrls[index % imageUrls.length],
+  price: (50 + index * 5).toFixed(2),
+  rating: (Math.random() * (5 - 3) + 3).toFixed(1),
+  seatsAvailable: Math.floor(Math.random() * 50) + 1,
+  name: hotelNames[index % hotelNames.length],
+  id: index + 1,
 }));
 
 const Hotels = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <div className=" py-10 md:-mt-44 -mt-44">
+    <div className="-mt-44">
       <h1 className="text-3xl font-bold underline text-center text-gray-800 mb-8">
         Available Hotels
       </h1>
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 mb-8">
-        {hotels.map((hotel) => (
+        {hotels.map((hotel, index) => (
           <div
             key={hotel.id}
-            className="bg-white shadow-md shadow-black rounded-lg overflow-hidden hover:scale-105 transform transition-all duration-300"
+            className={`bg-white shadow-md shadow-black rounded-lg overflow-hidden transform transition-all duration-100 ease-in-out ${
+              mounted ? "translate-x-0 opacity-100" : "opacity-0 translate-x-0"
+            }`}
+            style={{ transitionDelay: `${index * 800}ms` }}
           >
             <img
               src={hotel.image}
@@ -85,7 +94,7 @@ const Hotels = () => {
           </div>
         ))}
       </div>
-      <SubscriptionForm/>
+      <SubscriptionForm />
     </div>
   );
 };

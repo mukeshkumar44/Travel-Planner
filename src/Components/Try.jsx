@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const Try = () => {
   const destinationsData = [
@@ -7,6 +7,31 @@ const Try = () => {
     { title: "Tokyo", description: "Land of the Rising Sun", image: "https://extraordinary-flan-3a886a.netlify.app/static/media/Tokyo.007e6059470eacded64c.png" },
     { title: "Sydney", description: "Harbor City", image: "https://wallpapercave.com/wp/76YMeDJ.jpg" },
   ];
+
+  // Create refs for each card
+  const cardRefs = useRef([]);
+
+  const handleMouseMove = (e, index) => {
+    const card = cardRefs.current[index];
+    if (!card) return;
+
+    const { left, top, width, height } = card.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+
+    const rotateX = ((y / height - 12.5) * 15).toFixed(2); // Tilt effect on X-axis
+    const rotateY = ((x / width - 12) * -15).toFixed(2); // Tilt effect on Y-axis
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  };
+
+  const handleMouseLeave = (index) => {
+    const card = cardRefs.current[index];
+    if (!card) return;
+
+    // Reset transform to its original state
+    card.style.transform = "";
+  };
 
   return (
     <div className="md:mt-0 mt-[40rem]">
@@ -20,12 +45,18 @@ const Try = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {destinationsData.map((destination, inx) => (
-              <div key={inx} className="p-4 bg-white shadow-black shadow-md rounded">
+            {destinationsData.map((destination, index) => (
+              <div
+                key={index}
+                ref={(el) => (cardRefs.current[index] = el)}
+                className="p-4 bg-white shadow-black shadow-md rounded transition-transform duration-300 ease-in-out"
+                onMouseMove={(e) => handleMouseMove(e, index)}
+                onMouseLeave={() => handleMouseLeave(index)}
+              >
                 <img
                   src={destination.image}
                   alt={destination.title}
-                  className="w-full h-40 object-cover rounded transition-transform duration-300 ease-in-out hover:scale-105"
+                  className="w-full h-40 object-cover rounded"
                 />
                 <h3 className="text-lg font-bold mt-4">{destination.title}</h3>
                 <p className="text-sm text-gray-600">{destination.description}</p>
@@ -42,38 +73,30 @@ const Try = () => {
             <h1 className="text-3xl font-bold text-gray-800">Photo Gallery</h1>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-5">
-            <img
-              className="shadow-black shadow-md h-56 transition-transform duration-300 ease-in-out hover:scale-125"
-              src="https://th.bing.com/th/id/OIP.aVtfigX2nC5O2Q5b63VfTQHaEo?rs=1&pid=ImgDetMain"
-            />
-            <img
-              className="shadow-black shadow-md h-56 transition-transform duration-300 ease-in-out hover:scale-125"
-              src="https://images.musement.com/cover/0002/45/dubai-skyline-at-dusk-jpg_header-144981.jpeg?&q=60&fit=crop"
-            />
-            <img
-              className="shadow-black shadow-md h-56 transition-transform duration-300 ease-in-out hover:scale-125"
-              src="https://th.bing.com/th/id/OIP.D77CGBp3xQG_UV9uzOC_2AHaE8?w=1000&h=667&rs=1&pid=ImgDetMain"
-            />
-            <img
-              className="shadow-black shadow-md h-56 transition-transform duration-300 ease-in-out hover:scale-125"
-              src="https://images.pexels.com/photos/11023106/pexels-photo-11023106.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
-            <img
-              className="shadow-black shadow-md h-56 transition-transform duration-300 ease-in-out hover:scale-125"
-              src="https://images.pexels.com/photos/307006/pexels-photo-307006.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
-            <img
-              className="shadow-black shadow-md h-56 transition-transform duration-300 ease-in-out hover:scale-125"
-              src="https://images.pexels.com/photos/13331777/pexels-photo-13331777.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
-            <img
-              className="shadow-black shadow-md h-56 transition-transform duration-300 ease-in-out hover:scale-125"
-              src="https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
-            <img
-              className="shadow-black shadow-md h-56 transition-transform duration-300 ease-in-out hover:scale-125"
-              src="https://images.pexels.com/photos/287240/pexels-photo-287240.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
+            {[
+              "https://th.bing.com/th/id/OIP.aVtfigX2nC5O2Q5b63VfTQHaEo?rs=1&pid=ImgDetMain",
+              "https://th.bing.com/th/id/OIP.D77CGBp3xQG_UV9uzOC_2AHaE8?w=1000&h=667&rs=1&pid=ImgDetMain",
+              "https://images.pexels.com/photos/3968151/pexels-photo-3968151.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "https://images.pexels.com/photos/307006/pexels-photo-307006.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "https://images.pexels.com/photos/28717306/pexels-photo-28717306/free-photo-of-adventurous-woman-standing-on-rocky-cliff-edge.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "https://images.pexels.com/photos/29842537/pexels-photo-29842537/free-photo-of-girl-hugging-samoyed-dog-in-snowy-forest.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "https://images.pexels.com/photos/13331777/pexels-photo-13331777.jpeg?auto=compress&cs=tinysrgb&w=600",
+              "https://images.pexels.com/photos/287240/pexels-photo-287240.jpeg?auto=compress&cs=tinysrgb&w=600",
+            ].map((image, idx) => (
+              <div
+                key={idx}
+                ref={(el) => (cardRefs.current[idx + destinationsData.length] = el)}
+                className="relative group rounded overflow-hidden transition-transform duration-300 ease-in-out"
+                onMouseMove={(e) => handleMouseMove(e, idx + destinationsData.length)}
+                onMouseLeave={() => handleMouseLeave(idx + destinationsData.length)}
+              >
+                <img
+                  className="relative z-10 h-56 w-full object-cover"
+                  src={image}
+                  alt={`Gallery ${idx}`}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>

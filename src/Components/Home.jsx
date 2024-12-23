@@ -6,12 +6,12 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <nav className="bg-white shadow-md md:py-4 py-6">
+      <nav className="bg-white shadow-md md:py-4 py-6 relative">
         <div className="container mx-auto flex items-center justify-between px-4">
           <div className="text-orange-500 font-bold text-2xl md:transition-transform md:duration-300 md:ease-in-out md:hover:scale-150">
             Travel Planner
           </div>
-          <div className="hidden md:flex  items-center space-x-10 text-xl font-bold">
+          <div className="hidden md:flex items-center space-x-10 text-xl font-bold">
             <Link
               to="/"
               className="text-gray-700 hover:text-orange-500 transform transition ease duration-300 hover:translate-x-[-8px]"
@@ -47,41 +47,52 @@ const Home = () => {
               className="text-gray-700 text-3xl hover:text-orange-500 focus:outline-none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              ☰
+              {isMenuOpen ? "✕" : "☰"}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white shadow-lg px-4 py-2 space-y-2">
+          <div className="absolute top-0 left-0 w-full bg-white shadow-lg px-4 py-4 space-y-4 z-50">
+            <button
+              className="text-gray-700 text-2xl hover:text-orange-500 absolute right-4 top-4 focus:outline-none"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              ✕
+            </button>
             <Link
               to="/"
               className="block text-gray-700 hover:text-orange-500 font-bold"
+              onClick={() => setIsMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               to="/AllTours"
               className="block text-gray-700 hover:text-orange-500 font-bold"
+              onClick={() => setIsMenuOpen(false)}
             >
               Travel Guides
             </Link>
             <Link
               to="/hotels"
               className="block text-gray-700 hover:text-orange-500 font-bold"
+              onClick={() => setIsMenuOpen(false)}
             >
               Hotels
             </Link>
             <Link
               to="/login"
               className="block text-gray-700 hover:text-orange-500"
+              onClick={() => setIsMenuOpen(false)}
             >
               Login
             </Link>
             <Link
               to="/signup"
               className="block bg-orange-500 text-white py-2 px-4 rounded-full hover:bg-orange-600"
+              onClick={() => setIsMenuOpen(false)}
             >
               Sign Up
             </Link>

@@ -65,18 +65,7 @@ const TravelPlanner = () => {
       className=" bg-cover bg-center text-white">
     
       {/* Hero Section */}
-      <div className="h-72 md:mt-[-175px] -mt-56 flex flex-col justify-center items-center text-center bg-opacity-50 bg-black shadow-black shadow-md"
-         
-                      >
-                         <video
-        className="absolute w-full h-72 object-cover z-0"
-        autoPlay
-        muted
-        loop
-      >
-        <source src="/image/4K Relaxing Nature Sounds - Short Video Clips of Nature.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <div className="h-72 md:mt-[-175px] mt-[-190px] flex flex-col justify-center items-center text-center bg-opacity-50 bg-black shadow-black shadow-md">
         <h1 className="text-4xl font-bold mb-4 z-50">
           Journey to Explore {location || 'World'}
         </h1>
@@ -94,7 +83,7 @@ const TravelPlanner = () => {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Enter location"
-            className="p-3 border border-gray-300 rounded-md md:w-full md:max-w-md mx-auto focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-3 border border-gray-300 rounded-md w-full md:max-w-md mx-auto focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -130,14 +119,14 @@ const TravelPlanner = () => {
           <label className="text-sm font-medium">Check In</label>
           <input
             type="date"
-            className="border border-gray-300 rounded-md p-2 focus:outline-none"
+            className="border border-gray-300 rounded-md p-2 w-full focus:outline-none"
           />
         </div>
         <div className="flex flex-1 flex-col px-2">
           <label className="text-sm font-medium">Check Out</label>
           <input
             type="date"
-            className="border border-gray-300 rounded-md p-2 focus:outline-none"
+            className="border border-gray-300 w-full rounded-md p-2 focus:outline-none"
           />
         </div>
         <div className="flex flex-1 flex-col px-2">
@@ -152,7 +141,7 @@ const TravelPlanner = () => {
 
         
 
-        <button className="bg-red-500  transform transition ease duration-300 hover:translate-y-[-4px] hover:bg-red-600 text-white px-3 py-2 mt-5 rounded-md font-medium" 
+        <button className="bg-red-500  transform transition ease duration-300 hover:translate-y-[-4px] hover:bg-red-600 text-white px-4 py-2 mt-5 md:ml-0 ml-2 rounded-md font-medium" 
          onClick={handleSearch} >
           Search
         </button>
